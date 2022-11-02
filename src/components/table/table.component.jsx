@@ -7,6 +7,15 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
+import TableItem from "../table-item/table-item.component";
+
+import { Span } from "./table.styles";
+
+const tableItems = [
+  // { name: "sleep", id: 1 },
+  // { name: "eat", id: 2 },
+  // { name: "study", id: 3 },
+];
 const TaskTable = () => {
   return (
     <TableContainer component={Paper}>
@@ -14,13 +23,29 @@ const TaskTable = () => {
         <TableHead>
           <TableRow>
             <TableCell padding="checkbox"></TableCell>
-            <TableCell>ID</TableCell>
+            <TableCell>#</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell>Add</TableCell>
+            <TableCell>Done</TableCell>
             <TableCell>Remove</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody></TableBody>
+        <TableBody>
+          {tableItems.length ? (
+            tableItems.map((tableItem, idx) => (
+              <TableItem
+                key={tableItem.id}
+                tableItem={tableItem}
+                rowNumber={idx + 1}
+              />
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={5} align="center">
+                <Span>Don't You Have ANYTHING To Do?!</Span>
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
       </Table>
     </TableContainer>
   );
