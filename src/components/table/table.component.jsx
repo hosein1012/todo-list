@@ -1,4 +1,6 @@
-import * as React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,16 +9,26 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
+import { setTasks } from "../../store/tasks/tasks.action";
+import { selectTasks } from "../../store/tasks/tasks.selector";
+import { getTasks } from "../../utils/firebase/firebase.utils";
+
 import TableItem from "../table-item/table-item.component";
 
 import { Span } from "./table.styles";
 
-const tableItems = [
-  // { name: "sleep", id: 1 },
-  // { name: "eat", id: 2 },
-  // { name: "study", id: 3 },
-];
 const TaskTable = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const getTasksList = async () => {
+      const tasksList = await getTasks();
+      dispatch(setTasks(tasksList));
+    };
+    getTasksList();
+  }, []);
+
+  const tasks = useSelector(selectTasks);
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="task table">
@@ -30,8 +42,8 @@ const TaskTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {tableItems.length ? (
-            tableItems.map((tableItem, idx) => (
+          {tasks.length ? (
+            tasks.map((tableItem, idx) => (
               <TableItem
                 key={tableItem.id}
                 tableItem={tableItem}
