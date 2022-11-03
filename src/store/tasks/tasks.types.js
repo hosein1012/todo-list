@@ -1,3 +1,7 @@
 export const TASK_ACTION_TYPES = {
-  SET_NEW_TASK: "tasks/SET_NEW_TASK",
+  SET_TASKS: "tasks/SET_TASKS",
+  ADD_TASK: "tasks/ADD_TASK",
+  REMOVE_TASK: "tasks/REMOVE_TASK",
+  DONE_TASK: "tasks/DONE_TASK",
+  MARK_TASK_AS_SLELCTED: "tasks/MARK_TASK_AS_SLELCTED",
 };

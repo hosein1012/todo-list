@@ -29,7 +29,7 @@ const db = getFirestore();
 
 // Add a new document with a generated id.
 
-export const addTask = async (task) => {
+export const addTaskToDb = async (task) => {
   const { name } = task;
   const docRef = await addDoc(collection(db, "tasks"), {
     name,
@@ -47,13 +47,13 @@ export const getTasks = async () => {
   return taskList;
 };
 
-export const markTaskAsDone = async (taskID) => {
+export const markTaskAsDoneInDb = async (taskID) => {
   const taskRef = doc(db, "tasks", taskID);
   await updateDoc(taskRef, {
     status: true,
   });
 };
 
-export const deleteTask = async (taskID) => {
+export const deleteTaskFromDb = async (taskID) => {
   await deleteDoc(doc(db, "tasks", taskID));
 };
